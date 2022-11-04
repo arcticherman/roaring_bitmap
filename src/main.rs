@@ -1,6 +1,7 @@
 mod roaring_bitmap;
 use roaring_bitmap::RoaringBitMap;
 use std::collections::BTreeSet;
+use roaring_set;
 fn main() {
     let mut roaring_bitmap = RoaringBitMap::new();
     roaring_bitmap.add((1<<16)*2+1);

@@ -12,9 +12,9 @@ impl  RoaringBitMap {
         };
     }
 
-    pub fn add(& mut self, _val: u32){
-        let slot_index = self.get_slot_index(_val);
-        let store_val = self.get_store_val(_val);
+    pub fn add(& mut self, value: u32){
+        let slot_index = self.get_slot_index(value);
+        let store_val = self.get_store_val(value);
         println!("slot_index:{} store_val:{}", slot_index, store_val);
         if slot_index >= self.bit_map.len() {
             self.bit_map.resize(slot_index + 1, Vec::with_capacity(16));
@@ -26,11 +26,11 @@ impl  RoaringBitMap {
         }
     }
 
-    fn get_slot_index(&self, _val: u32) -> usize{
-        return (_val>>16) as usize;
+    fn get_slot_index(&self, value: u32) -> usize{
+        return (value>>16) as usize;
     }
 
-    fn get_store_val(&self, _val: u32) -> u16{
-        return (_val & self.val_mask) as u16;
+    fn get_store_val(&self, value: u32) -> u16{
+        return (value & self.val_mask) as u16;
     }
 }
