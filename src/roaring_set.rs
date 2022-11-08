@@ -1,8 +1,10 @@
 use std::collections::BTreeSet;
 
+use crate::vec_set::VecSet;
+
 pub struct RoaringSet{
     use_tree_set:    bool,
-    vec:        Vec<bool>,
+    vec:        VecSet,
     tree_set:   BTreeSet<u16>,
     mid_size:   usize,
     num:        usize,
@@ -12,7 +14,7 @@ impl RoaringSet{
     pub fn new() -> RoaringSet{
         return RoaringSet{
             use_tree_set:   true,
-            vec:            Vec::new(),
+            vec:            VecSet::new(),
             tree_set:       BTreeSet::new(),
             mid_size:       1<<14,
             num:            0,
@@ -24,24 +26,17 @@ impl RoaringSet{
             self.tree_set.insert(value);
             self.num = self.tree_set.len();
         }else{
-            let usize_val = value as usize;
-            if usize_val >= self.vec.len(){
-                self.vec.resize(usize_val + 1, false);
-            }
-            if !self.vec[usize_val]{
-                self.num = self.num + 1;
-            }
-            self.vec[usize_val] = true;
+            self.vec.add(value);
+            self.num = self.vec.len();
         }
         if self.num > self.mid_size && self.use_tree_set{
             //change to Vec
-            self.vec.resize(self.num, false);
-            for i in 0..self.vec.len(){
-                self.vec[i] = false;
-            }
+            println!("change to Vec");
+            self.vec.clear();
             for elem in &self.tree_set{
-                self.vec[*elem as usize] = true;
+                self.vec.add(*elem);
             }
+            self.use_tree_set = false;
         }
     }
 
@@ -50,26 +45,35 @@ impl RoaringSet{
             self.tree_set.remove(&value);
             self.num = self.tree_set.len();
         }else{
-            let usize_val = value as usize;
-            if usize_val < self.vec.len(){
-                if self.vec[usize_val]{
-                    self.num = self.num - 1;
-                }
-                self.vec[usize_val] = false;
-            }
+            self.vec.remove(value);
+            self.num = self.vec.len();
         }
         if self.num < (self.mid_size>>1) && !self.use_tree_set{
             //change to BTreeSet
+            println!("change to BTreeSet");
             self.tree_set.clear();
-            for i in 0..self.vec.len(){
-                if self.vec[i]{
-                    self.tree_set.insert(i as u16);
-                }
+            let values = self.vec.values();
+            for value in &values{
+                self.tree_set.insert(*value);
             }
+            self.vec.clear();
+            self.use_tree_set = true;
         }
     }
 
     pub fn len(&self) -> usize{
         return  self.num;
     }
+
+    pub fn values(& self) -> Vec<u16>{
+        if self.use_tree_set{
+            let mut tree_set_vec:Vec<u16> = Vec::new();
+            for elem in &self.tree_set{
+                tree_set_vec.push(*elem);
+            }
+            return  tree_set_vec;
+        }
+        return self.vec.values();
+    }
+
 }

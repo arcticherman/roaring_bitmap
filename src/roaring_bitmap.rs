@@ -8,7 +8,7 @@ impl  RoaringBitMap {
     pub fn new() -> RoaringBitMap{
         return RoaringBitMap {
             bit_map: Vec::with_capacity(16),
-            val_mask: (1<<16)-1,
+            val_mask: 0xFFFF,
         };
     }
 
