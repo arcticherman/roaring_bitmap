@@ -1,5 +1,5 @@
 use std::vec;
-
+#[derive(Clone)]
 pub struct VecSet{
     data:   Vec<u16>,
     num:    usize,

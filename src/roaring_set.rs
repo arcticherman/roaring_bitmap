@@ -1,7 +1,7 @@
 use std::collections::BTreeSet;
 
 use crate::vec_set::VecSet;
-
+#[derive(Clone)]
 pub struct RoaringSet{
     use_tree_set:    bool,
     vec:        VecSet,
