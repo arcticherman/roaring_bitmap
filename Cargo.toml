@@ -2,7 +2,12 @@
 name = "roaring_bitmap"
 version = "0.1.0"
 edition = "2021"
-
+license = "MIT OR Apache-2.0"
+description = "Roaring bitmap data structure implemented in Rust"
+homepage = "https://github.com/arcticherman/roaring_bitmap"
+documentation = "https://github.com/arcticherman/roaring_bitmap/blob/main/README.md"
+repository = "https://github.com/arcticherman/roaring_bitmap"
+readme = "https://github.com/arcticherman/roaring_bitmap/blob/main/README.md"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
