@@ -2,8 +2,8 @@ mod roaring_bitmap;
 mod roaring_bitmap64;
 mod roaring_set;
 mod vec_set;
-use roaring_bitmap64::RoaringBitMap64;
-use roaring_bitmap::RoaringBitMap;
+pub use roaring_bitmap64::RoaringBitMap64;
+pub use roaring_bitmap::RoaringBitMap;
 #[cfg(test)]
 mod tests {
     use super::*;
