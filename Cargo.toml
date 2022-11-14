@@ -1,6 +1,6 @@
 [package]
 name = "roaring_bitmap"
-version = "0.1.2"
+version = "0.1.3"
 edition = "2021"
 license = "MIT OR Apache-2.0"
 description = "Roaring bitmap data structure implemented in Rust"
@@ -9,7 +9,6 @@ documentation = "https://github.com/arcticherman/roaring_bitmap/blob/main/README
 repository = "https://github.com/arcticherman/roaring_bitmap"
 readme = "README.md"
 exclude = [
-    "src/main.rs",
     "cargo_pulish.sh",
     ".gitignore",
 ]
